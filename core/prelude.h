@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-static inline char *_toadGcMalloc(size_t bytes) {
+static inline char *__toad_gcalloc(size_t bytes) {
   if (bytes) {
     return (char *)GC_malloc(bytes);
   }

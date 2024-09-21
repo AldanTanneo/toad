@@ -277,8 +277,8 @@ let rec intrinsic_value oc types vsym symbol ty =
   | "box_new" ->
       let asym = create_type oc types (List.hd args) in
       Format.fprintf oc
-        "%s %s(%s value) { %s box = _toadGcMalloc(sizeof(value)); *box = \
-         value; return box; }@;"
+        "static %s %s(%s value) { %s box = __toad_gcalloc(sizeof(value)); *box \
+         = value; return box; }@;"
         rsym vsym asym rsym
   | "box_get" ->
       Format.fprintf oc "@?\n#define %s(value) (*value)\n@;@[<v>" vsym
@@ -317,8 +317,8 @@ let rec intrinsic_value oc types vsym symbol ty =
   | "args" ->
       let ssym = create_type oc types Types.str in
       Format.fprintf oc
-        "%s %s() {@;\
-         <1 2>@[%s * res = (%s *)_toadGcMalloc(__toad_argc * sizeof(%s));@;\
+        "static %s %s() {@;\
+         <1 2>@[%s * res = (%s *)__toad_gcalloc(__toad_argc * sizeof(%s));@;\
          for (int i = 0; i < __toad_argc; ++i)@;\
         \  res[i] = (%s){.data = __toad_argv[i], .len = \
          strlen(__toad_argv[i])};@;\
@@ -568,7 +568,7 @@ and create_value toplevel_oc oc locals ir types expr =
         in
         let asym = make_tmp_local "data" in
         let () =
-          Format.fprintf oc "%s * %s = _toadGcMalloc(%d * sizeof(%s));@;" esym
+          Format.fprintf oc "%s * %s = __toad_gcalloc(%d * sizeof(%s));@;" esym
             asym n esym
         in
         (if n <= 5 then
