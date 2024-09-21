@@ -76,16 +76,7 @@ let rec _mangle ty =
         | Types.VarInt _ -> f oc Types.i64
         | Types.VarFloat _ -> f oc Types.f64)
   in
-  let buf = Buffer.create 16 in
-  let oc = Format.formatter_of_buffer buf in
-  let () =
-    match ty with
-    | Types.Typename ((ns :: rest, name), lst) when ns = Types.core_ns ->
-        Format.fprintf oc "c%a%!" f (Types.Typename ((rest, name), lst))
-    | _ -> Format.fprintf (Format.formatter_of_buffer buf) "%a%!" f ty
-  in
-  let () = Format.pp_print_flush oc () in
-  Buffer.contents buf
+  Format.asprintf "%a" f ty
 
 let mangle_item (path, name) ty =
   match path with
@@ -135,7 +126,7 @@ let mangle_item =
       match Hashtbl.find_opt map key with
       | Some sym -> sym
       | None ->
-          "_toad_"
+          "T_"
           ^ List.fold_left
               (fun acc t -> acc ^ Utils.reverse_unique (mangle_type t) ^ "_")
               "" path
@@ -146,9 +137,9 @@ let mangle_item =
   in
   aux
 
-let mangle_type x = "_toad_" ^ mangle_type x
+let mangle_type x = "T_" ^ mangle_type x
 let mangle_obj (it, o) = mangle_item it (Ir.obj_type o)
-let generated_obj : (string, unit) Hashtbl.t = Hashtbl.create 5
+let generated_obj : (string, unit) Hashtbl.t = Hashtbl.create 16
 let is_generated sym = Hashtbl.mem generated_obj sym
 
 let mark_generated sym =
