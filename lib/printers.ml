@@ -345,3 +345,17 @@ let pp_anon_typedef oc =
 
 let pp_typing_env = pp_env pp_schema (pp_pair (pp_schema, pp_anon_typedef))
 let pp_subst = pp_list (pp_pair (pp_tyvar, pp_type))
+
+let pp_c_string oc s =
+  let () = Format.pp_print_string oc "\"" in
+  let () =
+    String.iter
+      (fun c ->
+        match c with
+        | '"' -> Format.pp_print_string oc "\\\""
+        | '\\' -> Format.pp_print_string oc "\\\\"
+        | ' ' .. '~' -> Format.pp_print_char oc c
+        | _ -> Format.fprintf oc "\\x%02x" (Char.code c))
+      s
+  in
+  Format.pp_print_string oc "\""

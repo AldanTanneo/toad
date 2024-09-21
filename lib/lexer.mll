@@ -173,9 +173,6 @@ and in_string = parse
 | '\\' ['\\' '\'' '"' 'n' 't' 'b' 'r' ' '] {
     store_string_char(char_for_backslash(Lexing.lexeme_char lexbuf 1));
     in_string lexbuf }
-| '\\' decimal decimal decimal {
-    store_string_char(char_for_decimal_code lexbuf 1);
-    in_string lexbuf }
 | '\\' 'x' hex hex {
     store_string_char(char_for_hexadecimal_code lexbuf 2);
     in_string lexbuf }

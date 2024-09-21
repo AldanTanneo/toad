@@ -86,4 +86,6 @@ fn main() {
     println("");
     print_usize(phi(10));
     println("");
+    let s = "symphony 🐬";
+    println(s);
 }

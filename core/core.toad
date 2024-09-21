@@ -259,6 +259,19 @@ impl<T> Option<T> {
     }
 }
 
+impl str {
+    extern len: fn(Self) -> usize = "@len";
+    extern unsafe_index: fn(Self, usize) -> u8 = "@unsafe_index";
+    
+    fn index(self, idx: usize) -> u8 {
+        if idx < self.len() {
+            self.unsafe_index(idx)
+        } else {
+            panic("Index out of bounds")
+        }
+    }
+}
+
 impl<T> [T] {
     extern len: fn(Self) -> usize = "@len";
     extern unsafe_index: fn(Self, usize) -> T = "@unsafe_index";

@@ -150,6 +150,7 @@ let mark_generated sym =
 
 let generated_ty : (string, alignment) Hashtbl.t =
   let table = Hashtbl.create 16 in
+  Hashtbl.add table (mangle_type Types.bool) A0;
   Hashtbl.add table (mangle_type Types.u8) A1;
   Hashtbl.add table (mangle_type Types.i8) A1;
   Hashtbl.add table (mangle_type Types.u16) A2;
@@ -286,7 +287,7 @@ let rec intrinsic_value oc types vsym symbol ty =
   | "print" ->
       let ssym = create_type oc types (List.hd args) in
       Format.fprintf oc
-        "void %s(%s s) {@;\
+        "static void %s(%s s) {@;\
          <1 2>@[fwrite(s.data, 1, s.len, stdout);@;\
          fflush(stdout);@]@;\
          }@;"
@@ -294,7 +295,7 @@ let rec intrinsic_value oc types vsym symbol ty =
   | "println" ->
       let ssym = create_type oc types (List.hd args) in
       Format.fprintf oc
-        "void %s(%s s) {@;\
+        "static void %s(%s s) {@;\
          <1 2>@[fwrite(s.data, 1, s.len, stdout);@;\
          fwrite(\"\\n\", 1, 1, stdout);@;\
          fflush(stdout);@]@;\
@@ -303,7 +304,10 @@ let rec intrinsic_value oc types vsym symbol ty =
   | "print_byte" ->
       let ssym = create_type oc types (List.hd args) in
       Format.fprintf oc
-        "void %s(%s s) {@;<1 2>@[printf(\"%%d\", s);@;fflush(stdout);@]@;}@;"
+        "static void %s(%s s) {@;\
+         <1 2>@[printf(\"%%d\", s);@;\
+         fflush(stdout);@]@;\
+         }@;"
         vsym ssym
   | "args" ->
       let ssym = create_type oc types Types.str in
@@ -540,8 +544,8 @@ and create_value toplevel_oc oc locals ir types expr =
       Printf.sprintf "(%s)%g" tsym f
   | String s ->
       let tsym = create_type toplevel_oc types Types.str in
-      Format.sprintf "((%s){@;@[.data = %S,@;.len = %d@]@;})" tsym s
-        (String.length s)
+      Format.asprintf "((%s){@;@[.data = %a,@;.len = %d@]@;})" tsym
+        Printers.pp_c_string s (String.length s)
   | Ident (([], id), _) -> List.assoc id locals
   | Ident (it, _) ->
       let obj = find_obj ir it in
