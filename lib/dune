@@ -1,0 +1,11 @@
+(library
+ (public_name toad)
+ (preprocess
+  (pps ppx_deriving.show))
+ (libraries menhirLib))
+
+(ocamllex lexer)
+
+(menhir
+ (modules parser)
+ (flags "-v"))

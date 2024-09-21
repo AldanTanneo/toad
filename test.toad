@@ -1,0 +1,89 @@
+fn fact(n: usize) -> usize {
+    if n == 0 {
+        1
+    } else {
+        n * fact(n-1)
+    }
+}
+
+fn phi(n: usize) -> usize {
+    let a = 0;
+    let b = 1;
+    for i in 0..n {
+        let tmp = a;
+        a = b;
+        b = b + tmp;
+    }
+    a
+}
+
+fn sub_one(y: usize) -> usize {
+    if !(args().len() < 3) {
+        println("hello there!");
+        y - 1
+    } else {
+        y
+    }
+}
+
+struct Vec3 {
+    x: usize,
+    y: usize,
+    z: usize,
+}
+
+impl Vec3 {
+    fn new(x: usize, y: usize, z: usize) -> Self {
+        { x: x, y: y, z: z }
+    }
+
+    fn dbg(self) {
+        println("Vec3 {");
+        print("  x: ");
+        print_usize(self.x);
+        println(",");
+        print("  y: ");
+        print_usize(self.y);
+        println(",");
+        print("  z: ");
+        print_usize(self.z);
+        println(",");
+        println("}");
+    }
+
+    fn add(self, other: Self) -> Self {
+        {
+            x: self.x + other.x,
+            y: self.y + other.y,
+            z: self.z + other.z
+        }
+    }
+
+    fn dot(self, other: Self) -> usize {
+        self.x * other.x + self.y * other.y + self.z * other.z
+    }
+}
+
+fn main() {
+    for a in args() {
+        println(a);
+    }
+
+    let v = Vec3::new(1,2,3);
+    let w = v + Vec3::new(4,5,6);
+    print("v = ");
+    v.dbg();
+    print("w = ");
+    w.dbg();
+    print("v . w = ");
+    print_usize(v.dot(w));
+    println("");
+
+    let y = 43u8;
+    print_byte(y - 1);
+    println("");
+    print_usize(fact(6));
+    println("");
+    print_usize(phi(10));
+    println("");
+}

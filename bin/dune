@@ -1,0 +1,19 @@
+(executable
+ (public_name toadc)
+ (name main)
+ (libraries toad)
+ (modules main cli bundled))
+
+(rule
+ (target bundled.ml)
+ (deps ../core/core.toad ../core/prelude.h)
+ (action
+  (with-stdout-to
+   bundled.ml
+   (progn
+    (echo "let core = {core_toad|")
+    (cat ../core/core.toad)
+    (echo "|core_toad};;")
+    (echo "let prelude = {prelude_h|")
+    (cat ../core/prelude.h)
+    (echo "|prelude_h};;")))))

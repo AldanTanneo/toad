@@ -1,0 +1,313 @@
+extern type unit = "@unit";
+extern type str = "@str";
+extern type bool = "bool";
+
+impl bool {
+    extern not: fn(Self) -> Self = "!";
+}
+
+extern type Box<T> = "@box";
+
+impl<T> Box<T> {
+    extern new: fn(T) -> Self = "@box_new";
+    extern get: fn(Self) -> T = "@box_get";
+}
+
+enum Option<T> {
+    None,
+    Some(T)
+}
+
+use Option::{Some, None};
+
+extern type i8 = "int8_t";
+extern type u8 = "uint8_t";
+extern type i16 = "int16_t";
+extern type u16 = "uint16_t";
+extern type i32 = "int32_t";
+extern type u32 = "uint32_t";
+extern type i64 = "int64_t";
+extern type u64 = "uint64_t";
+extern type isize = "intptr_t";
+extern type usize = "uintptr_t";
+extern type f32 = "float";
+extern type f64 = "double";
+
+impl i8 {
+    extern add: fn(Self, Self) -> Self = "@add";
+    extern sub: fn(Self, Self) -> Self = "@sub";
+    extern mul: fn(Self, Self) -> Self = "@mul";
+    extern div: fn(Self, Self) -> Self = "@div";
+    extern mod: fn(Self, Self) -> Self = "@mod";
+    
+    extern neg: fn(Self) -> Self = "@neg";
+
+    extern le: fn(Self, Self) -> bool = "@le";
+    extern lt: fn(Self, Self) -> bool = "@lt";
+    extern ge: fn(Self, Self) -> bool = "@ge";
+    extern gt: fn(Self, Self) -> bool = "@gt";
+    extern eq: fn(Self, Self) -> bool = "@eq";
+}
+
+impl u8 {
+    extern add: fn(Self, Self) -> Self = "@add";
+    extern sub: fn(Self, Self) -> Self = "@sub";
+    extern mul: fn(Self, Self) -> Self = "@mul";
+    extern div: fn(Self, Self) -> Self = "@div";
+    extern mod: fn(Self, Self) -> Self = "@mod";
+
+    extern le: fn(Self, Self) -> bool = "@le";
+    extern lt: fn(Self, Self) -> bool = "@lt";
+    extern ge: fn(Self, Self) -> bool = "@ge";
+    extern gt: fn(Self, Self) -> bool = "@gt";
+    extern eq: fn(Self, Self) -> bool = "@eq";
+}
+
+impl i16 {
+    extern add: fn(Self, Self) -> Self = "@add";
+    extern sub: fn(Self, Self) -> Self = "@sub";
+    extern mul: fn(Self, Self) -> Self = "@mul";
+    extern div: fn(Self, Self) -> Self = "@div";
+    extern mod: fn(Self, Self) -> Self = "@mod";
+
+    extern neg: fn(Self) -> Self = "@neg";
+
+    extern le: fn(Self, Self) -> bool = "@le";
+    extern lt: fn(Self, Self) -> bool = "@lt";
+    extern ge: fn(Self, Self) -> bool = "@ge";
+    extern gt: fn(Self, Self) -> bool = "@gt";
+    extern eq: fn(Self, Self) -> bool = "@eq";
+}
+
+impl u16 {
+    extern add: fn(Self, Self) -> Self = "@add";
+    extern sub: fn(Self, Self) -> Self = "@sub";
+    extern mul: fn(Self, Self) -> Self = "@mul";
+    extern div: fn(Self, Self) -> Self = "@div";
+    extern mod: fn(Self, Self) -> Self = "@mod";
+
+    extern le: fn(Self, Self) -> bool = "@le";
+    extern lt: fn(Self, Self) -> bool = "@lt";
+    extern ge: fn(Self, Self) -> bool = "@ge";
+    extern gt: fn(Self, Self) -> bool = "@gt";
+    extern eq: fn(Self, Self) -> bool = "@eq";
+}
+
+impl i32 {
+    extern add: fn(Self, Self) -> Self = "@add";
+    extern sub: fn(Self, Self) -> Self = "@sub";
+    extern mul: fn(Self, Self) -> Self = "@mul";
+    extern div: fn(Self, Self) -> Self = "@div";
+    extern mod: fn(Self, Self) -> Self = "@mod";
+
+    extern neg: fn(Self) -> Self = "@neg";
+
+    extern le: fn(Self, Self) -> bool = "@le";
+    extern lt: fn(Self, Self) -> bool = "@lt";
+    extern ge: fn(Self, Self) -> bool = "@ge";
+    extern gt: fn(Self, Self) -> bool = "@gt";
+    extern eq: fn(Self, Self) -> bool = "@eq";
+}
+
+impl u32 {
+    extern add: fn(Self, Self) -> Self = "@add";
+    extern sub: fn(Self, Self) -> Self = "@sub";
+    extern mul: fn(Self, Self) -> Self = "@mul";
+    extern div: fn(Self, Self) -> Self = "@div";
+    extern mod: fn(Self, Self) -> Self = "@mod";
+
+    extern le: fn(Self, Self) -> bool = "@le";
+    extern lt: fn(Self, Self) -> bool = "@lt";
+    extern ge: fn(Self, Self) -> bool = "@ge";
+    extern gt: fn(Self, Self) -> bool = "@gt";
+    extern eq: fn(Self, Self) -> bool = "@eq";
+}
+
+impl i64 {
+    extern add: fn(Self, Self) -> Self = "@add";
+    extern sub: fn(Self, Self) -> Self = "@sub";
+    extern mul: fn(Self, Self) -> Self = "@mul";
+    extern div: fn(Self, Self) -> Self = "@div";
+    extern mod: fn(Self, Self) -> Self = "@mod";
+
+    extern neg: fn(Self) -> Self = "@neg";
+
+    extern le: fn(Self, Self) -> bool = "@le";
+    extern lt: fn(Self, Self) -> bool = "@lt";
+    extern ge: fn(Self, Self) -> bool = "@ge";
+    extern gt: fn(Self, Self) -> bool = "@gt";
+    extern eq: fn(Self, Self) -> bool = "@eq";
+}
+
+impl u64 {
+    extern add: fn(Self, Self) -> Self = "@add";
+    extern sub: fn(Self, Self) -> Self = "@sub";
+    extern mul: fn(Self, Self) -> Self = "@mul";
+    extern div: fn(Self, Self) -> Self = "@div";
+    extern mod: fn(Self, Self) -> Self = "@mod";
+
+    extern le: fn(Self, Self) -> bool = "@le";
+    extern lt: fn(Self, Self) -> bool = "@lt";
+    extern ge: fn(Self, Self) -> bool = "@ge";
+    extern gt: fn(Self, Self) -> bool = "@gt";
+    extern eq: fn(Self, Self) -> bool = "@eq";
+}
+
+impl isize {
+    extern add: fn(Self, Self) -> Self = "@add";
+    extern sub: fn(Self, Self) -> Self = "@sub";
+    extern mul: fn(Self, Self) -> Self = "@mul";
+    extern div: fn(Self, Self) -> Self = "@div";
+    extern mod: fn(Self, Self) -> Self = "@mod";
+
+    extern neg: fn(Self) -> Self = "@neg";
+
+    extern le: fn(Self, Self) -> bool = "@le";
+    extern lt: fn(Self, Self) -> bool = "@lt";
+    extern ge: fn(Self, Self) -> bool = "@ge";
+    extern gt: fn(Self, Self) -> bool = "@gt";
+    extern eq: fn(Self, Self) -> bool = "@eq";
+}
+
+impl usize {
+    extern add: fn(Self, Self) -> Self = "@add";
+    extern sub: fn(Self, Self) -> Self = "@sub";
+    extern mul: fn(Self, Self) -> Self = "@mul";
+    extern div: fn(Self, Self) -> Self = "@div";
+    extern mod: fn(Self, Self) -> Self = "@mod";
+
+    extern le: fn(Self, Self) -> bool = "@le";
+    extern lt: fn(Self, Self) -> bool = "@lt";
+    extern ge: fn(Self, Self) -> bool = "@ge";
+    extern gt: fn(Self, Self) -> bool = "@gt";
+    extern eq: fn(Self, Self) -> bool = "@eq";
+}
+
+impl f32 {
+    extern add: fn(Self, Self) -> Self = "@add";
+    extern sub: fn(Self, Self) -> Self = "@sub";
+    extern mul: fn(Self, Self) -> Self = "@mul";
+    extern div: fn(Self, Self) -> Self = "@div";
+    extern mod: fn(Self, Self) -> Self = "@mod";
+
+    extern neg: fn(Self) -> Self = "@neg";
+
+    extern le: fn(Self, Self) -> bool = "@le";
+    extern lt: fn(Self, Self) -> bool = "@lt";
+    extern ge: fn(Self, Self) -> bool = "@ge";
+    extern gt: fn(Self, Self) -> bool = "@gt";
+    extern eq: fn(Self, Self) -> bool = "@eq";
+}
+
+impl f64 {
+    extern add: fn(Self, Self) -> Self = "@add";
+    extern sub: fn(Self, Self) -> Self = "@sub";
+    extern mul: fn(Self, Self) -> Self = "@mul";
+    extern div: fn(Self, Self) -> Self = "@div";
+    extern mod: fn(Self, Self) -> Self = "@mod";
+
+    extern neg: fn(Self) -> Self = "@neg";
+
+    extern le: fn(Self, Self) -> bool = "@le";
+    extern lt: fn(Self, Self) -> bool = "@lt";
+    extern ge: fn(Self, Self) -> bool = "@ge";
+    extern gt: fn(Self, Self) -> bool = "@gt";
+    extern eq: fn(Self, Self) -> bool = "@eq";
+}
+
+extern panic: fn(str) -> _ = "@panic";
+extern size_of: fn(_) -> usize = "@sizeof";
+extern unsafe_transmute_array: fn([u8]) -> [_] = "@transmute_array";
+extern args: fn() -> [str] = "@args";
+extern print: fn(str) -> () = "@print";
+extern println: fn(str) -> () = "@println";
+extern print_byte: fn(u8) -> () = "@print_byte";
+extern print_usize: fn(usize) -> () = "print_usize";
+
+fn assert(cond: bool) {
+    if !cond {
+        panic("Assertion failed");
+    }
+}
+
+extern unsafe_alloc: fn(usize) -> [u8] = "@alloc";
+extern zero_alloc: fn(usize) -> [u8] = "@calloc";
+
+impl<T> Option<T> {
+    fn is_some(self) -> bool {
+        match self {
+            Some(v) -> true,
+            None -> false
+        }
+    }
+
+    fn is_none(self) -> bool {
+        match self {
+            Some(v) -> false,
+            None -> true,
+        }
+    }
+
+    fn iter(self) -> Self {
+        self
+    }
+
+    fn next(self) -> Self {
+        let res = self;
+        self = None;
+        res
+    }
+}
+
+impl<T> [T] {
+    extern len: fn(Self) -> usize = "@len";
+    extern unsafe_index: fn(Self, usize) -> T = "@unsafe_index";
+    extern unsafe_set_index: fn(Self, usize, T) -> () = "%unsafe_set_index";
+
+    fn index(self, idx: usize) -> T {
+        if idx < self.len() {
+            self.unsafe_index(idx)
+        } else {
+            panic("Index out of bounds")
+        }
+    }
+    
+    fn set_index(self, idx: usize, elt: T) {
+        if idx < self.len() {
+            self.unsafe_set_index(idx, elt);
+        } else {
+            panic("Index out of bounds");
+        }
+    }
+
+    fn repeat(elt: T, num: usize) -> Self {
+        let raw_bytes = unsafe_alloc(num * size_of(elt));
+        let array: Self = unsafe_transmute_array(raw_bytes);
+        assert(array.len() == num);
+        for i in 0..num {
+            array[i] = elt;
+        }
+        array
+    }
+
+    struct Iter {
+        array: [T],
+        pos: usize
+    }
+
+    fn iter(self) -> Iter {
+        { array: self, pos: 0 }
+    }
+
+    impl Iter {
+        fn next(self) -> Option<T> {
+            if self.pos >= self.array.len() {
+                None
+            } else {
+                let res = self.array[self.pos];
+                self.pos = self.pos + 1;
+                Some(res)
+            }
+        }
+    } 
+}
